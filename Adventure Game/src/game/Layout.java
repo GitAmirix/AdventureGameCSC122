@@ -1,5 +1,6 @@
 package game;
 
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -21,9 +22,16 @@ public class Layout {
 	private JTextArea text_pane;
 	private JTextField input_pane;
 	private JScrollPane scroll_pane;
-
+    private JButton notepad;
+    private JMenuBar menubar;
+    private JMenu menu;
+    JMenuItem menuItem;
+    
+    
+   
 	private Room current_room;
 	private ArrayList<String> inventory;
+    private ArrayList<String> notes;
 
 	public static void main(String[] args) {
 		Layout game = new Layout();
@@ -32,6 +40,7 @@ public class Layout {
 
 	public Layout() {
 		inventory = new ArrayList<String>();
+       
 		addRooms();
 		makeFrame();
 		setRoom();
@@ -96,7 +105,7 @@ public class Layout {
 
 	private void setRoom() {
 		setDescription("");
-
+		
 		try {
 			if (current_room == null) {
 				image = ImageIO.read(new File("C:/Users/Chris/Pictures/71616.jpg"));
@@ -159,6 +168,25 @@ public class Layout {
 		input_pane.setColumns(35);
 		input_pane.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 		content.add(input_pane, BorderLayout.PAGE_END);
+	
+		 // the notepad button
+		menubar = new JMenuBar();
+
+		//menuItem = new JMenuItem("Notes");
+		
+		
+		
+
+		// create the File menu
+		JMenu fileMenu = new JMenu("File");
+		menubar.add(fileMenu);
+		JMenuItem notesItem = new JMenuItem("Notes");
+		fileMenu.add(notesItem);
+		JMenuItem quitItem = new JMenuItem("Quit");
+		fileMenu.add(quitItem);
+		frame.setJMenuBar(menubar);
+		
+
 
 		input_pane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -166,6 +194,25 @@ public class Layout {
 				input_pane.setText("");
 			}
 		});
+		
+		// add a listener to the button so that actions can occur when the user clicks button
+        notesItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                // notes to appear in text pane
+                setDescription("What you have " + notes);
+            }
+        });
+        
+        quitItem.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                // closes game
+                System.exit(0);
+            }
+        });
 	}
 
 	private void process(String s) {
@@ -223,6 +270,7 @@ public class Layout {
 				for (String item : current_room.getItems()) {
 					if (noun.equals(item)) {
 						inventory.add(item);
+						notes.add(item);
 						current_room.removeItem(item);
 						response = "Item grabbed.";
 
