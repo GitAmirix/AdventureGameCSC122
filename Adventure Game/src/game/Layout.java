@@ -178,16 +178,12 @@ public class Layout {
 		
 
 		// create the File menu
-		JMenu notesMenu = new JMenu("Notes");
-		menubar.add(notesMenu);
+		JMenu fileMenu = new JMenu("File");
+		menubar.add(fileMenu);
 		JMenuItem notesItem = new JMenuItem("Notes");
-		notesMenu.add(notesItem);
-		JMenu helpMenu = new JMenu("Help");
-		menubar.add(helpMenu);
-		JMenu quitMenu = new JMenu("Quit");
-		menubar.add(quitMenu);
+		fileMenu.add(notesItem);
 		JMenuItem quitItem = new JMenuItem("Quit");
-		quitMenu.add(quitItem);
+		fileMenu.add(quitItem);
 		frame.setJMenuBar(menubar);
 		
 
