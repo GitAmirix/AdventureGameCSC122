@@ -184,6 +184,8 @@ public class Layout {
 		notesMenu.add(notesItem);
 		JMenu helpMenu = new JMenu("Help");
 		menubar.add(helpMenu);
+		JMenuItem helpItem = new JMenuItem("Help");
+		helpMenu.add(helpItem);
 		JMenu quitMenu = new JMenu("Quit");
 		menubar.add(quitMenu);
 		JMenuItem quitItem = new JMenuItem("Quit");
