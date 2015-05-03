@@ -1,23 +1,38 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Students {
     private String name;
-    private String image;
+    private String normalImage;
+    private String scaredImage;
+    private String angryImage;
 
     private HashMap<String, Students> speak;
     private HashMap<String, String> responses;
+    private ArrayList<String> motive;    
 
-    public Students(String n, String i) {
+    public Students(String n, String ni, String si, String ai) {
         name = n;
-        image = i;
+        normalImage = ni;
+        scaredImage = si;
+        angryImage = ai;
         speak = new HashMap<String, Students>();
         responses = new HashMap<String, String>();
+        motive = new ArrayList<String>();
     }
 
-    public String getImage() {
-        return image;
+    public String getNormalImage() {
+        return normalImage;
+    }
+    
+    public String getScaredImage() {
+        return scaredImage;
+    }
+    
+    public String getAngryImage() {
+        return angryImage;
     }
     
     public HashMap<String, Students> getspeak() {
@@ -51,4 +66,12 @@ public class Students {
 	        
         return s;
     }
+
+	public ArrayList<String> getMotive() {
+		return motive;
+	}
+
+	public void setMotive(ArrayList<String> motive) {
+		this.motive = motive;
+	}
 }
