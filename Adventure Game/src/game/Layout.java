@@ -1,6 +1,5 @@
 package game;
 
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -22,13 +21,11 @@ public class Layout {
 	private JTextArea text_pane;
 	private JTextField input_pane;
 	private JScrollPane scroll_pane;
-    private JButton notepad;
     private JMenuBar menubar;
-    private JMenu menu;
-    JMenuItem menuItem;
-    
-    
-   
+    private JMenuItem notepad;
+    private JMenuItem help; 
+    private JMenuItem quit;
+  
 	private Room current_room;
 	private ArrayList<String> inventory;
     private ArrayList<String> notes;
@@ -172,31 +169,16 @@ public class Layout {
 		input_pane.setColumns(35);
 		input_pane.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 		content.add(input_pane, BorderLayout.PAGE_END);
-	
-		 // the notepad button
+
 		menubar = new JMenuBar();
+			notepad = new JMenuItem("Notes");
+		menubar.add(notepad);
+			help = new JMenuItem("Help");
+		menubar.add(help);		
+			quit = new JMenuItem("Quit");
+		menubar.add(quit);
 
-		//menuItem = new JMenuItem("Notes");
-		
-		
-		
-
-		// create the File menu
-		JMenu notesMenu = new JMenu("Notes");
-		menubar.add(notesMenu);
-		JMenuItem notesItem = new JMenuItem("Notes");
-		notesMenu.add(notesItem);
-		JMenu helpMenu = new JMenu("Help");
-		menubar.add(helpMenu);
-		JMenuItem helpItem = new JMenuItem("Help");
-		helpMenu.add(helpItem);
-		JMenu quitMenu = new JMenu("Quit");
-		menubar.add(quitMenu);
-		JMenuItem quitItem = new JMenuItem("Quit");
-		quitMenu.add(quitItem);
 		frame.setJMenuBar(menubar);
-		
-
 
 		input_pane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -205,21 +187,20 @@ public class Layout {
 			}
 		});
 		
-		// add a listener to the button so that actions can occur when the user clicks button
-        notesItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                // notes to appear in text pane
+		notepad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 setDescription("What you have " + notes);
             }
         });
+		
+		help.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setDescription("Try:\n<verb> <noun>\nValid <verb>: go look take");
+            }
+        });
         
-        quitItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                // closes game
+        quit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
