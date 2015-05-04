@@ -1,6 +1,5 @@
 package game;
 
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -22,13 +21,11 @@ public class Layout {
 	private JTextArea text_pane;
 	private JTextField input_pane;
 	private JScrollPane scroll_pane;
-    private JButton notepad;
     private JMenuBar menubar;
-    private JMenu menu;
-    JMenuItem menuItem;
-    
-    
-   
+    private JMenuItem notepad;
+    private JMenuItem help; 
+    private JMenuItem quit;
+  
 	private Room current_room;
 	private ArrayList<String> inventory;
     private ArrayList<String> notes;
@@ -47,7 +44,7 @@ public class Layout {
 	}
 
 	private void addRooms() {
-		Room lobby, diningRoom, kitchen, study, mansion  /*, bedRoom, courtYard, shed*/  ;
+		Room lobby, diningRoom, kitchen, study, mansion, courtYard, shed  /*, bedRoom*/  ;
 
 		lobby = 		new Room ("Lobby", "Lobby.jpg");
 		diningRoom =	new Room ("Dining Room", "Dining Room.jpg");
@@ -55,18 +52,19 @@ public class Layout {
 		study = 		new Room ("Study", "Study.jpg");
 		mansion = 		new Room ("Mansion", "Mansion.jpg");
 //		bedRoom =		new Room ("Bed Room", "Bed Room.jpg");
-//		courtYard =		new Room ("Courtyard", "Courtyard.jpg");
-//		shed = 			new Room ("Shed", "Shed.jpg");
+		courtYard =		new Room ("Courtyard", "Courtyard.jpg");
+		shed = 			new Room ("Shed", "Shed.jpg");
 		
 		mansion.addExit("lobby", lobby);
 		
 		lobby.addExit("diningroom", diningRoom);
 		lobby.addExit("kitchen", kitchen);
 //		lobby.addExit("bedroom", bedRoom);
+		lobby.addExit("courtyard", courtYard);
 		lobby.addObject("guitar", "I wonder whose signature is that on the guitar. I'll have to ask Gourd at dinner.");
 		lobby.addObject("statue", "It's a statue of a bluejay!");
-		lobby.addObject("table", "It's covered in beer bottles with labels that have gourds face on it and Canadian magazines  all in French.");
-		lobby.addObject("armor", "Holy crap, a Gourd manikin is in here!");
+		lobby.addObject("table", "It's covered in beer bottles with labels that have gourds face on it and Canadian magazines, all in French.");
+		lobby.addObject("armor", "Holy crap, a Gourd mannequin is in here!");
 		
 		diningRoom.addExit("lobby", lobby);
 		diningRoom.addExit("study", study);
@@ -90,7 +88,7 @@ public class Layout {
 		bedRoom.addObject("bed", "It is made of wicker and no one is sitting on it.");
 		bedRoom.addObject("bookcase", "All these books are dusty and old.");
 		bedRoom.addObject("lockbox", "What is Gourd hiding in there?");
-		
+*/		
 		courtYard.addExit("lobby", lobby);
 		courtYard.addExit("shed", shed);
 		courtYard.addItem("syringe");
@@ -99,7 +97,7 @@ public class Layout {
 		shed.addExit("courtyard", courtYard);
 		shed.addItem("key");
 		shed.addObject("key", "I wonder what this goes to?");
-*/
+
 		current_room = mansion;
 	}
 
@@ -155,7 +153,10 @@ public class Layout {
 		text_pane.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 		text_pane.setEditable(false);
 		text_pane.setLineWrap(true);
+		text_pane.setWrapStyleWord(true);
 		text_pane.setFont(new Font("Comic Sans MS", 1, 20));
+		text_pane.setBackground(Color.BLACK);
+		text_pane.setForeground(Color.WHITE);
 		content.add(text_pane, BorderLayout.CENTER);
 		
 		scroll_pane = new JScrollPane(text_pane);
@@ -168,31 +169,16 @@ public class Layout {
 		input_pane.setColumns(35);
 		input_pane.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 		content.add(input_pane, BorderLayout.PAGE_END);
-	
-		 // the notepad button
+
 		menubar = new JMenuBar();
+			notepad = new JMenuItem("Notes");
+		menubar.add(notepad);
+			help = new JMenuItem("Help");
+		menubar.add(help);		
+			quit = new JMenuItem("Quit");
+		menubar.add(quit);
 
-		//menuItem = new JMenuItem("Notes");
-		
-		
-		
-
-		// create the File menu
-		JMenu notesMenu = new JMenu("Notes");
-		menubar.add(notesMenu);
-		JMenuItem notesItem = new JMenuItem("Notes");
-		notesMenu.add(notesItem);
-		JMenu helpMenu = new JMenu("Help");
-		menubar.add(helpMenu);
-		JMenuItem helpItem = new JMenuItem("Help");
-		helpMenu.add(helpItem);
-		JMenu quitMenu = new JMenu("Quit");
-		menubar.add(quitMenu);
-		JMenuItem quitItem = new JMenuItem("Quit");
-		quitMenu.add(quitItem);
 		frame.setJMenuBar(menubar);
-		
-
 
 		input_pane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -201,21 +187,20 @@ public class Layout {
 			}
 		});
 		
-		// add a listener to the button so that actions can occur when the user clicks button
-        notesItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                // notes to appear in text pane
+		notepad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 setDescription("What you have " + notes);
             }
         });
+		
+		help.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setDescription("Try:\n<verb> <noun>\nValid <verb>: go look take");
+            }
+        });
         
-        quitItem.addActionListener(new ActionListener()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                // closes game
+        quit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
