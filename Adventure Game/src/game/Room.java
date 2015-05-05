@@ -52,13 +52,13 @@ public class Room {
     }
     
     public String toString() {
-        String s = "You are in " + name + ".\n\n";
+        String s = "You are in " + name + ".\n";
 	        
         s += "You see: ";
         for (String object : objects.keySet()) {
             s += object + " ";
         }
-        s += "\n\n";
+        s += "\n";
         
         s += "Exits: ";
         for (String exit : exits.keySet()) {

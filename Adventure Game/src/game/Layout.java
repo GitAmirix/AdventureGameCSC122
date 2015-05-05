@@ -74,10 +74,12 @@ public class Layout {
 
 		kitchen.addExit("lobby", lobby);
 		kitchen.addItem("medicine");
+		kitchen.addObject("medicine", "It says, poisinous if taken in excess.");
 		kitchen.addObject("pot", "This jalapeno soup is gonna be delicious!");
 		kitchen.addObject("refrigerator", "Hi there, I'm Gourds fridge. You seem trustworthy, unlike that other student.");
+		kitchen.addObject("pantry", "It's full of dry foods and... Is that medicine.");
 
-		study.addExit("diningroom", diningRoom);
+//		study.addExit("bedroom", bedRoom);
 		study.addExit("kitchen", kitchen);
 		study.addObject("letter", "You’ll regret the day you gave me that F! it says. I wonder what that’s all about?");
 		study.addObject("poster", "It's a poster of Gourd and says, Our Gourd and Savior.");
@@ -124,7 +126,7 @@ public class Layout {
 		if (current_room == null) {
 			text_pane.setText("You are dead.");
 		} else {
-			text_pane.setText(current_room + "\nYou are carrying: " + inventory	+ "\n\n" + s);
+			text_pane.setText(current_room + "\nYou are carrying: " + inventory	+ "\n" + s);
 		}
 	}
 
@@ -139,7 +141,7 @@ public class Layout {
 	private void makeFrame() {
 		frame = new JFrame(GAME_TITLE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(900, 700));
+		frame.setPreferredSize(new Dimension(820, 700));
 		content = (JPanel) frame.getContentPane();
 
 		image_pane = new JLabel();
@@ -154,7 +156,7 @@ public class Layout {
 		text_pane.setEditable(false);
 		text_pane.setLineWrap(true);
 		text_pane.setWrapStyleWord(true);
-		text_pane.setFont(new Font("Comic Sans MS", 1, 20));
+		text_pane.setFont(new Font("Agency FB", 1, 30));
 		text_pane.setBackground(Color.BLACK);
 		text_pane.setForeground(Color.WHITE);
 		content.add(text_pane, BorderLayout.CENTER);
@@ -165,7 +167,7 @@ public class Layout {
 		content.add(scroll_pane, BorderLayout.CENTER);
 
 		input_pane = new JTextField();
-		input_pane.setFont(new Font("Courier new", 1, 20));
+		input_pane.setFont(new Font("Agency FB", 1, 20));
 		input_pane.setColumns(35);
 		input_pane.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 		content.add(input_pane, BorderLayout.PAGE_END);
@@ -231,8 +233,7 @@ public class Layout {
 			if (verb.equals("go")) {
 				response = "Invalid exit.";
 
-				for (Map.Entry<String, Room> entry : current_room.getExits()
-						.entrySet()) {
+				for (Map.Entry<String, Room> entry : current_room.getExits().entrySet()) {
 					String exit = entry.getKey();
 
 					if (noun.equals(exit)) {
@@ -261,7 +262,7 @@ public class Layout {
 				for (String item : current_room.getItems()) {
 					if (noun.equals(item)) {
 						inventory.add(item);
-						notes.add(item);
+//						notes.add(item);
 						current_room.removeItem(item);
 						response = "Item grabbed.";
 
