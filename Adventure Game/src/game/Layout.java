@@ -189,15 +189,17 @@ public class Layout {
 			}
 		});
 		
+		//http://stackoverflow.com/questions/7080205/popup-message-boxes
 		notepad.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setDescription("What you have " + notes);
+                JOptionPane.showMessageDialog(null, "You have: " + notes);
             }
         });
 		
+		//http://stackoverflow.com/questions/7080205/popup-message-boxes
 		help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                setDescription("Try:\n<verb> <noun>\nValid <verb>: go look take");
+            	JOptionPane.showMessageDialog(null, "Try:\n<verb> <noun>\nValid <verb>: go look take");
             }
         });
         
